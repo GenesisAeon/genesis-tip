@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-18
+
+### Fixed
+- CI: added the missing `docs` optional-dependency extra
+  (`mkdocs`/`mkdocs-material`) to `pyproject.toml` — the `Docs (mkdocs
+  --strict)` CI job installed `.[dev,docs]`, but the `docs` extra didn't
+  exist, so `mkdocs` was silently never installed (`pip` doesn't error
+  on an unknown extra name) and the build step failed with "command not
+  found". Found by checking the real CI run for `v0.1.0`, not assuming
+  local `pytest`+`ruff` success meant the whole pipeline was clean.
+- `mypy src` (part of the same CI run's `Lint` job, also red): fixed 2
+  real type errors — a bare `dict` return-type annotation missing its
+  type parameters in `falsification.py`, and a missing return-type
+  annotation on `system.py`'s `_build_manipulator` helper.
+- Supersedes `v0.1.0` (CI red on both the `Lint` and `Docs` jobs; not
+  removed/force-moved, left in history — no code/API change relative to
+  it besides these two CI-only fixes).
+
 ## [0.1.0] - 2026-07-18
 
 ### Added

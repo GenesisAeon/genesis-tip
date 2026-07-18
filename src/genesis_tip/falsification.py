@@ -38,7 +38,7 @@ class RhoSemCorrelationResult:
     min_sample_size: int
     verdict: str
 
-    def summary_dict(self) -> dict:
+    def summary_dict(self) -> dict[str, float | int | str | None]:
         return {
             "n": self.n,
             "spearman_rho": self.spearman_rho,

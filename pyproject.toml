@@ -1,6 +1,6 @@
 [project]
 name = "genesis-tip"
-version = "0.1.0"
+version = "0.1.1"
 description = "Temporal Integrity Probe — behavioural consistency testing for LLM agents under temporal context manipulation (GenesisAeon P50)"
 readme = "README.md"
 license = { text = "MIT" }
@@ -29,6 +29,10 @@ dependencies = [
 [project.optional-dependencies]
 scope = [
     "scope-resilience>=1.0.0",
+]
+docs = [
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.0",
 ]
 dev = [
     "ruff>=0.6.0",

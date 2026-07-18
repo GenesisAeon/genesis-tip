@@ -20,6 +20,7 @@ Connection to P41 (scope-resilience):
 from __future__ import annotations
 
 import datetime
+from collections.abc import Callable
 from typing import Any
 
 from genesis_tip.crep_gate import (
@@ -247,7 +248,9 @@ class TemporalIntegrityProbe:
 
     # -- internals --------------------------------------------------------
 
-    def _build_manipulator(self, context_entries: list[ContextEntry]):
+    def _build_manipulator(
+        self, context_entries: list[ContextEntry]
+    ) -> Callable[[list[ContextEntry]], tuple[list[ContextEntry], list[dict[str, Any]]]]:
         if self.perturbation_mode in _MANIPULATORS:
             return _MANIPULATORS[self.perturbation_mode]
 
