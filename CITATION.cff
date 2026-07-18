@@ -1,20 +1,23 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "diamond-setup"
-version: "2.2.0"
-date-released: "2026-07-16"
 authors:
-  - name: "GenesisAeon"
-repository-code: "https://github.com/GenesisAeon/diamond-setup"
+  - family-names: Römer
+    given-names: Johann
+    affiliation: "Independent Researcher / MOR Research Collective"
+title: "genesis-tip"
+version: "0.1.0"
+date-released: "2026-07-18"
+url: "https://github.com/GenesisAeon/genesis-tip"
+repository-code: "https://github.com/GenesisAeon/genesis-tip"
 license: MIT
-abstract: "Universal Python project scaffold — generate professional project skeletons in seconds"
+abstract: "Temporal Integrity Probe — measures LLM behavioural consistency under temporal context manipulation. GenesisAeon P50."
 keywords:
   - GenesisAeon
-  - UTAC
-  - CREP
+  - P50
+  - TIP
+  - temporal-integrity
+  - LLM-evaluation
+  - consistency
+  - behavioral-testing
   - open-science
-  - scaffold
-  - template
-  - cli
-  - project-generator

@@ -1,33 +1,34 @@
 [project]
-name = "diamond-setup"
-version = "2.2.0"
-description = "Universal Python project scaffold — generate professional project skeletons in seconds"
+name = "genesis-tip"
+version = "0.1.0"
+description = "Temporal Integrity Probe — behavioural consistency testing for LLM agents under temporal context manipulation (GenesisAeon P50)"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "GenesisAeon" }]
+authors = [{ name = "Johann Römer", email = "joberoemer@gmail.com" }]
 requires-python = ">=3.11"
-keywords = ["scaffold", "template", "cli", "project-generator", "skeleton"]
+keywords = [
+    "GenesisAeon", "P50", "TIP", "temporal-integrity",
+    "LLM-evaluation", "consistency", "behavioral-testing",
+    "open-science",
+]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Intended Audience :: Developers",
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Code Generators",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
-    "typer>=0.12.0",
-    "rich>=13.7.0",
-    "pyyaml>=6.0",
-    "pydantic>=2.7",
+    "numpy>=1.24",
+    "scipy>=1.13",
+    "diamond-setup>=2.2.0",
 ]
 
 [project.optional-dependencies]
-docs = [
-    "mkdocs>=1.6.0",
-    "mkdocs-material>=9.5.0",
+scope = [
+    "scope-resilience>=1.0.0",
 ]
 dev = [
     "ruff>=0.6.0",
@@ -37,22 +38,17 @@ dev = [
     "pytest-cov>=5.0.0",
 ]
 
-[project.scripts]
-diamond = "diamond_setup.cli:app"
-
 [project.urls]
-Homepage = "https://github.com/GenesisAeon/diamond-setup"
-Repository = "https://github.com/GenesisAeon/diamond-setup"
-Documentation = "https://genesisaeon.github.io/diamond-setup"
-Issues = "https://github.com/GenesisAeon/diamond-setup/issues"
-Zenodo = "https://doi.org/10.5281/zenodo.XXXXXXX"
+Homepage = "https://github.com/GenesisAeon/genesis-tip"
+Repository = "https://github.com/GenesisAeon/genesis-tip"
+Issues = "https://github.com/GenesisAeon/genesis-tip/issues"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/diamond_setup"]
+packages = ["src/genesis_tip"]
 
 [tool.ruff]
 line-length = 100
@@ -60,14 +56,14 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "B", "I", "W", "UP", "C4", "SIM"]
-ignore = ["B008"]  # typer uses function calls in defaults
+ignore = ["B008"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101"]  # allow assert in tests
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=diamond_setup --cov-report=term-missing -v"
+addopts = "--cov=genesis_tip --cov-report=term-missing -v"
 
 [tool.coverage.run]
 source = ["src"]
@@ -79,4 +75,3 @@ strict = true
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
-

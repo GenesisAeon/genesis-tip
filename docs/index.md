@@ -1,37 +1,42 @@
-# Diamond Setup
+# genesis-tip — Temporal Integrity Probe (P50)
 
-**Universal Python project scaffold** — generate professional, CI-ready project skeletons in seconds.
+**Measures whether LLM agents remain internally consistent when temporal
+context is manipulated.**
 
-No cookiecutter, no Jinja2, no magic. Just a clean CLI, sensible templates, and a validator that keeps your projects healthy.
+TIP perturbs the temporal structure of an agent's context in three ways
+— shuffle, gap, contradict — and measures whether the agent's outputs
+remain structurally coherent despite the perturbation. No claims about
+internal states: observable text behaviour only. See
+[Epistemic Boundaries](epistemic_boundaries.md) for the full governance
+policy.
 
 ## Quickstart
 
-```bash
-pip install diamond-setup
-# or with uv:
-uv tool install diamond-setup
+```python
+from genesis_tip import TemporalIntegrityProbe
+
+tip = TemporalIntegrityProbe(perturbation_mode="shuffle")
+result = tip.run_cycle()
+print(f"Consistency score: {result['consistency_score']:.3f}")
+print(f"Gate status: {result['gate_status']}")
 ```
 
-```bash
-diamond scaffold my-new-tool
-cd my-new-tool && uv sync --dev && uv run pytest
-```
+## Role in the GenesisAeon ecosystem
 
-## Why Diamond Setup?
+TIP is the only external instrument that can falsify Rho_sem from
+[scope-resilience (P41)](https://github.com/GenesisAeon/scope-resilience)
+without privileged access to model internals — see the pre-registered
+hypothesis and falsification criteria in the project
+[README](https://github.com/GenesisAeon/genesis-tip#pre-registered-hypothesis).
 
-| Feature | diamond-setup | cookiecutter | copier |
-|---------|:---:|:---:|:---:|
-| Zero config needed | ✅ | ❌ | ❌ |
-| Built-in validator | ✅ | ❌ | ❌ |
-| Pure Python templates | ✅ | ❌ | ❌ |
-| `--dry-run` support | ✅ | ❌ | ✅ |
-| Extensible presets | ✅ | ✅ | ✅ |
+## Modules
 
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `diamond scaffold <name>` | Create a new project |
-| `diamond list-templates` | Show available templates |
-| `diamond validate [path]` | Check a project's health |
-| `diamond version` | Show version |
+| Module | Purpose |
+|---|---|
+| `harness/session_runner.py` | Builds multi-turn agent conversations under controlled context (dense/sparse/fragmented) |
+| `manipulations/` | `temporal_shuffle`, `gap_injection`, `contradiction_injection` — deterministic, seeded |
+| `metrics/consistency_scorer.py` | Self-reference inconsistency, contradiction rate, recovery rate, orientation latency |
+| `report/tip_report_template.py` | Markdown comparison report across agents and modes |
+| `crep_gate.py` | Pre-registered gate status (blocked / pending_review / passed) |
+| `falsification.py` | The pre-registered Spearman rho_sem correlation test |
+| `system.py` | `TemporalIntegrityProbe` — Diamond Interface wrapper tying the above together |

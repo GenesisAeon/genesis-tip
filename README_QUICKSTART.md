@@ -2,15 +2,12 @@
 
 ## Installation
 
-```bash
-pip install <package-name>
-```
-
-## Development Setup
+Not yet on PyPI — see [epistemic_status.md](epistemic_status.md).
+Install from source instead:
 
 ```bash
-git clone https://github.com/GenesisAeon/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/GenesisAeon/genesis-tip.git
+cd genesis-tip
 pip install -e ".[dev]"
 ```
 

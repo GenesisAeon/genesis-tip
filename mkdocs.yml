@@ -1,8 +1,8 @@
-site_name: Diamond Setup
-site_description: Universal Python project scaffold — generate professional project skeletons in seconds
-site_author: GenesisAeon
-repo_url: https://github.com/GenesisAeon/diamond-setup
-repo_name: GenesisAeon/diamond-setup
+site_name: genesis-tip
+site_description: Temporal Integrity Probe — behavioural consistency testing for LLM agents under temporal context manipulation (GenesisAeon P50)
+site_author: Johann Römer
+repo_url: https://github.com/GenesisAeon/genesis-tip
+repo_name: GenesisAeon/genesis-tip
 
 theme:
   name: material
@@ -39,5 +39,4 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - CLI Reference: cli.md
-  - Templates: templates.md
+  - Epistemic Boundaries: epistemic_boundaries.md

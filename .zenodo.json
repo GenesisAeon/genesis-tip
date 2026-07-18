@@ -1,6 +1,6 @@
 {
-  "title": "diamond-setup — P-INFRA-1: Universal Python project scaffold — generate professional project skeletons in seconds",
-  "description": "<p>Universal Python project scaffold — generate professional project skeletons in seconds.</p><p>Part of the <strong>GenesisAeon</strong> ecosystem (P-INFRA-1, domain: ecosystem infrastructure / template scaffold).</p><p>See <a href=\"https://github.com/GenesisAeon/diamond-setup\">github.com/GenesisAeon/diamond-setup</a> for source, documentation, and reproducibility notebooks.</p>",
+  "title": "genesis-tip — P50: Temporal Integrity Probe for LLM behavioural consistency",
+  "description": "<p>Measures whether LLM agents' text outputs remain internally consistent when temporal context is manipulated (shuffled, gapped, contradicted). Outputs consistency scores hypothesised to rank-correlate (Spearman rho &gt;= 0.3, n &gt;= 30) with Rho_sem from scope-resilience (P41). Pre-registration anchor: commit 1cf1730 (multi-scale-somatic-coherence, 2026-07-15). Standalone extraction of genesis-mssc's (P49) mssc.tip module. Part of the <strong>GenesisAeon</strong> ecosystem (P50, domain: LLM-evaluation).</p>",
   "creators": [
     {
       "name": "Römer, Johann",
@@ -10,13 +10,17 @@
   "license": "MIT",
   "upload_type": "software",
   "access_right": "open",
+  "version": "0.1.0",
   "keywords": [
     "GenesisAeon",
-    "P-INFRA-1",
-    "ecosystem infrastructure",
-    "UTAC",
-    "CREP",
-    "open science"
+    "P50",
+    "TIP",
+    "temporal-integrity",
+    "LLM-evaluation",
+    "consistency",
+    "behavioral-testing",
+    "pre-registered",
+    "open-science"
   ],
   "related_identifiers": [
     {
@@ -24,9 +28,13 @@
       "relation": "isPartOf",
       "resource_type": "publication-article",
       "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/GenesisAeon/multi-scale-somatic-coherence",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
     }
   ],
-  "version": "2.2.0",
   "communities": [
     {
       "identifier": "genesisaeon"

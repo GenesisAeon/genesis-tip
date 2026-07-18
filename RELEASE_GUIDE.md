@@ -32,8 +32,16 @@ We use [Semantic Versioning](https://semver.org/): `MAJOR.MINOR.PATCH`.
 
 ## Dependency pins within the GenesisAeon ecosystem
 
-`diamond-setup` is ecosystem infrastructure (a project scaffolding tool)
-and has no runtime dependency on other `GenesisAeon/*` packages. If this
-ever changes, pin them with `>=` lower bounds matching the minimum
-version that provides the API this package relies on — do not pin exact
-versions (`==`).
+`genesis-tip` depends on `diamond-setup>=2.2.0` and optionally
+`scope-resilience>=1.0.0` (the `scope` extra, for cross-validating
+Rho_sem values against TIP's own consistency scores). Pin ecosystem
+dependencies with `>=` lower bounds matching the minimum version that
+provides the API this package relies on — do not pin exact versions
+(`==`).
+
+## Not yet published to PyPI
+
+This package is Pre-Alpha and not yet published — see
+`epistemic_status.md`. Tagging `v0.1.0` archives the source and (if
+Zenodo-GitHub integration is enabled) mints a Zenodo DOI, but does not
+imply a PyPI release is expected at this stage.

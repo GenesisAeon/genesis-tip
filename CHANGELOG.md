@@ -7,47 +7,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [2.2.0] - 2026-07-16
+## [0.1.0] - 2026-07-18
+
 ### Added
-- `ResilienceState` Pydantic model — canonical Ρ snapshot (`rho`, `lambda_star`,
-  `recovery_time`, `criticality_margin`, `coupling_load`, `near_collapse`).
-- `DiamondPackage.get_resilience_state()` — optional sixth Diamond method.
-  Default implementation returns `{"rho": None, "implemented": False}`;
-  packages built on `resilience-core` override it (see `resilience-core`
-  P40 and `scope-resilience` P41).
-- `NotInitializedError` — alias for `NotConvergedError`, used in
-  GenesisAeon P40/P41 documentation.
-- `.github/workflows/diamond-validation.yml` — Diamond Protocol self-check
-  CI job, running on every push/PR to validate protocol conformance.
+- Initial release as a standalone package (extracted from
+  `genesis-mssc`/`mssc.tip`, P49 → P50).
+- Real TIP implementation ported from `mssc.tip`, not reimplemented as a
+  placeholder: `harness/session_runner.py` (dense/sparse/fragmented
+  session builder), `manipulations/` (`temporal_shuffle`, `gap_injection`,
+  `contradiction_injection`, all deterministic given a seed),
+  `metrics/consistency_scorer.py` (self-reference inconsistency,
+  contradiction rate, recovery rate, orientation latency),
+  `report/tip_report_template.py` (Markdown comparison report), and
+  `docs/epistemic_boundaries.md` (governance policy, carried over
+  unchanged).
+- `TemporalIntegrityProbe`: Diamond Interface main class
+  (`run_cycle`, `get_crep_state`, `get_utac_state`, `get_phase_events`,
+  `to_zenodo_record`, plus the optional 6th method
+  `get_resilience_state()`) wired to the real harness/manipulation/
+  scoring modules above, with a deterministic dummy agent as the default
+  for offline/CI-safe testing.
+- `crep_gate.py`: P50's own `CREPGateStatus` gate (blocked /
+  pending_review / passed) with the 5 pre-registered gate conditions —
+  distinct from `genesis-mssc`'s own domain-18 gate (different
+  conditions; both share only the Ρ_sem threshold/sample-size constants
+  and the `rho_sem_correlation_tested` condition).
+- `falsification.py`: `run_rho_sem_correlation_test()` — the actual
+  pre-registered Spearman rank-correlation implementation (using
+  `scipy.stats.spearmanr`), distinguishing `supported` / `falsified` /
+  `insufficient_sample` verdicts. Not present in `mssc.tip` itself; the
+  pre-registration anchor (commit `1cf1730`) fixed the threshold and
+  sample size but the correlation test itself had not yet been
+  implemented anywhere.
+- `epistemic_status.md`: full pre-registered hypothesis, gate-condition
+  table, and epistemic-boundaries summary.
+- 77 tests (including the ported real `mssc.tip` test suites for
+  manipulations and consistency scoring), all passing; `ruff` clean.
 
-## [2.1.0] - 2026-07-01
-### Added
-- `diamond_setup.protocol.DiamondPackage` — canonical ABC for the five-method
-  Diamond interface (`run_cycle`, `get_crep_state`, `get_utac_state`,
-  `get_phase_events`, `to_zenodo_record`).
-- Pydantic models: `CREPState`, `UTACState`, `ZenodoRecord`.
-- `NotConvergedError` — Γ/UTAC reads before first `run_cycle()` are rejected
-  (Gamma is an attractor property, not an initial value).
-- `diamond_setup.validation.validate_diamond_instance` for CI/schema checks.
-- `contracts/diamond.interface.yaml` — machine-readable contract spec.
+### Fixed (relative to the diamond-setup scaffold this repo started from)
+- Removed the vendored `diamond_setup` copy from `src/` — declares
+  `diamond-setup>=2.2.0` as a real dependency instead.
+- Removed dead scaffold tests (`test_cli.py`, `test_preset.py`,
+  `test_protocol.py`, `test_validator.py`) referencing `diamond_setup`
+  directly; kept `test_runtime_contract.py` (tests this repo's own
+  `contracts/runtime.schema.yaml`, a legitimate scaffold feature).
+- Rewrote `README.md`, `README_QUICKSTART.md`, `RELEASE_GUIDE.md`,
+  `mkdocs.yml`, `docs/index.md`; removed `docs/cli.md`/`docs/templates.md`
+  (about the `diamond` CLI itself, irrelevant here — this package has no
+  CLI).
 
-## [2.0.0] - 2026
-### Changed
-- Re-tagged ecosystem milestone release as v2.0.0 — the v1.0.0 tag in
-  this repo's history predates the GenesisAeon ecosystem-wide milestone
-  (a prior scaffold-template release) and was not available for reuse.
-  v2.0.0 is the correct, free major version for this milestone and is
-  functionally a continuation of the v1.0.0 release below.
-
-## [1.0.0] - 2026
-### Added
-- Initial v1.0.0 release as part of the GenesisAeon ecosystem-wide 1.0.0
-  milestone.
-- `diamond` CLI: `scaffold`, `list-templates`, and `validate` commands.
-- `minimal` and `genesis` project templates.
-- Standardized release tooling: `.zenodo.json`, `RELEASE_GUIDE.md`,
-  `CONTRIBUTING.md`, issue/PR templates.
-
-### Changed
-- Project metadata (`pyproject.toml`) normalized: description encoding
-  fixed, license, authors, and `requires-python` confirmed present.
+### Status
+- `CREPGateStatus`: BLOCKED (Γ_somatic not yet implemented; 0/5 gate
+  conditions met).
+- Diamond Interface: implemented but gated — `get_crep_state()` returns
+  `Gamma: None` until gate condition (b); `get_resilience_state()`
+  returns `{"rho": None, "implemented": False}`.
+- PyPI: not yet published — pending real session data (gate condition a)
+  and Γ_somatic implementation (gate condition b).
