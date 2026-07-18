@@ -1,0 +1,114 @@
+name: Diamond Interface Validation
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master, "claude/**"]
+
+jobs:
+  diamond-validation:
+    name: Diamond Protocol Self-Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: pip install -e ".[dev]"
+
+      - name: Run Diamond Protocol Validation
+        run: |
+          python -c "
+          from diamond_setup.protocol import (
+              DiamondPackage, CREPState, UTACState, ZenodoRecord,
+              ZenodoCreator, ResilienceState, NotConvergedError,
+              NotInitializedError,
+          )
+          from diamond_setup.validation import validate_diamond_instance, validate_model_shapes
+          from diamond_setup import __version__
+
+          # 1. Model shapes
+          errors = validate_model_shapes()
+          assert not errors, f'Model shape errors: {errors}'
+          print(f'✅ Model shapes valid')
+
+          # 2. ResilienceState model
+          rs = ResilienceState(
+              rho=0.65, lambda_star=0.42, recovery_time=2.38,
+              criticality_margin=0.727, coupling_load=0.0, near_collapse=False,
+          )
+          assert rs.rho == 0.65
+          assert 'rho' in rs.as_dict()
+          print(f'✅ ResilienceState model valid: Ρ={rs.rho}')
+
+          # 3. NotInitializedError is alias for NotConvergedError
+          assert NotInitializedError is NotConvergedError
+          print('✅ NotInitializedError alias correct')
+
+          # 4. Default get_resilience_state() returns not-implemented signal
+          class _MinimalPackage(DiamondPackage):
+              def _run_cycle(self):
+                  return {}
+              def _build_crep_state(self):
+                  return CREPState(C=0.5, R=0.5, E=0.5, P=0.5)
+              def _build_utac_state(self):
+                  return UTACState(H=0.5, H_star=0.7, K_eff=1.0)
+              def _build_phase_events(self):
+                  return []
+              def _build_zenodo_record(self):
+                  return ZenodoRecord(
+                      title='test', description='test',
+                      creators=[ZenodoCreator(name='Test')],
+                  )
+
+          pkg = _MinimalPackage()
+          res = pkg.get_resilience_state()
+          assert res['rho'] is None
+          assert res['implemented'] is False
+          print('✅ Default get_resilience_state() signals not-implemented')
+
+          # 5. Full Diamond validation
+          errs = validate_diamond_instance(_MinimalPackage())
+          assert not errs, f'Diamond validation errors: {errs}'
+          print('✅ Full Diamond interface validation passed')
+
+          print()
+          print(f'✅ ALL DIAMOND INTERFACE CHECKS PASSED (diamond-setup v{__version__})')
+          "
+
+      - name: Check Gamma against expected value (optional)
+        if: env.EXPECTED_GAMMA != ''
+        run: |
+          python -c "
+          import os, importlib
+          pkg_name = os.environ.get('PACKAGE_MODULE_NAME', '')
+          expected = float(os.environ.get('EXPECTED_GAMMA', '0'))
+          tolerance = float(os.environ.get('GAMMA_TOLERANCE', '0.05'))
+          if not pkg_name or not expected:
+              exit(0)
+          mod = importlib.import_module(pkg_name)
+          from diamond_setup import DiamondPackage
+          classes = [
+              cls for cls in vars(mod).values()
+              if isinstance(cls, type)
+              and issubclass(cls, DiamondPackage)
+              and cls is not DiamondPackage
+          ]
+          assert classes, f'No DiamondPackage subclass in {pkg_name}'
+          inst = classes[0]()
+          inst.run_cycle()
+          gamma = inst.get_crep_state()['Gamma']
+          assert gamma is not None, 'Gamma is None after run_cycle'
+          assert abs(gamma - expected) <= tolerance, (
+              f'Gamma {gamma:.4f} outside [{expected-tolerance:.4f}, {expected+tolerance:.4f}]'
+          )
+          print(f'✅ Gamma check: {gamma:.4f} ≈ {expected} (±{tolerance})')
+          "
+        env:
+          EXPECTED_GAMMA: ${{ vars.EXPECTED_GAMMA }}
+          GAMMA_TOLERANCE: ${{ vars.GAMMA_TOLERANCE || '0.05' }}
+          PACKAGE_MODULE_NAME: ${{ vars.PACKAGE_MODULE_NAME }}

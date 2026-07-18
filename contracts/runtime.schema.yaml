@@ -1,0 +1,152 @@
+# Q4 Runtime Contract Schema — diamond-setup
+# Repos ohne diese Datei: Standard-Diamond-Verhalten, kein Unterschied.
+# Repos MIT dieser Datei: opt-in in Q4-Zustandsmaschine und ga.frame.* Layer.
+#
+# Validierung: python scripts/validate_runtime.py <path/to/runtime.yaml>
+
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://genesisaeon.github.io/diamond-setup/contracts/runtime.schema.yaml"
+title: "GenesisAeon Q4 Runtime Contract"
+description: >
+  Optionale Deklaration für GenesisAeon-kompatible Repos.
+  Aktiviert Q4-Zustandsmaschine, NATS ga.frame.*-Subjects und Gray-Code-Policy.
+  Ohne diese Datei: unverändertes Diamond-Setup-Verhalten.
+type: object
+required:
+  - runtime
+additionalProperties: false
+
+properties:
+  runtime:
+    type: object
+    required:
+      - version
+      - protocol
+    additionalProperties: false
+    properties:
+
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+$"
+        description: Schema-Version dieser Deklaration (aktuell "1.0").
+        example: "1.0"
+
+      protocol:
+        type: string
+        enum: ["q4", "standard"]
+        description: >
+          "q4" aktiviert den 4-Bit-Zustandsraum und ga.frame.*-Subjects.
+          "standard" entspricht dem bisherigen Diamond-Verhalten.
+
+      layers:
+        type: object
+        additionalProperties: false
+        properties:
+
+          geometry:
+            type: object
+            additionalProperties: false
+            properties:
+              enabled:
+                type: boolean
+                default: false
+              phi_scaling:
+                type: boolean
+                default: false
+                description: >
+                  Φ-basiertes Layout-Spacing (Faktor 1.6 — Engineering-Näherung,
+                  NICHT exakt Φ = 1.6180339…, Fehler < 0.2%).
+
+          state:
+            type: object
+            additionalProperties: false
+            properties:
+              enabled:
+                type: boolean
+                default: false
+              bits:
+                type: integer
+                const: 4
+                description: "4-Bit Q4-Zustandsraum. Immer 4, nie 16."
+              states:
+                type: integer
+                const: 16
+                description: >
+                  16 Zustände = 4 Bit (log₂(16) = 4 Bit). NICHT 16 Bit.
+              thresholds:
+                type: object
+                description: CREP-Float-Schwellenwerte für die Q4Mapper-Grenze.
+                additionalProperties: false
+                properties:
+                  C:
+                    type: number
+                    minimum: 0.0
+                    maximum: 1.0
+                    default: 0.5
+                    description: Kohärenz-Schwellenwert
+                  R:
+                    type: number
+                    minimum: 0.0
+                    maximum: 1.0
+                    default: 0.6
+                    description: Resonanz-Schwellenwert
+                  E:
+                    type: number
+                    minimum: 0.0
+                    maximum: 1.0
+                    default: 0.7
+                    description: Emergenz-Schwellenwert
+                  P:
+                    type: number
+                    minimum: 0.0
+                    maximum: 1.0
+                    default: 0.8
+                    description: Poetik-Schwellenwert
+
+          coupling:
+            type: object
+            additionalProperties: false
+            properties:
+              enabled:
+                type: boolean
+                default: false
+              transport:
+                type: string
+                enum: ["nats", "none"]
+                default: "none"
+              gray_code:
+                type: boolean
+                default: false
+                description: >
+                  Erzwingt Gray-Code-Policy: Nur Übergänge mit Hamming-Distanz = 1
+                  werden auf NATS publiziert. Verhindert mehrdimensionale Sprünge.
+              subjects:
+                type: array
+                items:
+                  type: string
+                  pattern: "^ga\\."
+                description: >
+                  NATS-Subject-Prefixe. Alle Subjects beginnen mit "ga.".
+                example:
+                  - "ga.frame."
+                  - "ga.sigillin."
+                  - "ga.agent."
+                  - "ga.resonance."
+
+      speculative:
+        type: object
+        additionalProperties: false
+        description: >
+          Experimentelle/spekulative Features. Niemals in Produktion aktivieren.
+        properties:
+          efc_coupling:
+            type: boolean
+            default: false
+            description: >
+              Ephaptische Frame-Kopplung (EFC). Nur im efc-research-module.
+              In Produktion immer false.
+          consciousness_model:
+            type: boolean
+            default: false
+            description: >
+              Bewusstseinsmodell. Niemals in Produktion. Immer false.

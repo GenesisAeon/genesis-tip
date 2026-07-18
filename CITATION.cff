@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "diamond-setup"
+version: "2.2.0"
+date-released: "2026-07-16"
+authors:
+  - name: "GenesisAeon"
+repository-code: "https://github.com/GenesisAeon/diamond-setup"
+license: MIT
+abstract: "Universal Python project scaffold — generate professional project skeletons in seconds"
+keywords:
+  - GenesisAeon
+  - UTAC
+  - CREP
+  - open-science
+  - scaffold
+  - template
+  - cli
+  - project-generator

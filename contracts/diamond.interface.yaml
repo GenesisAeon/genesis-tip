@@ -1,0 +1,33 @@
+# GenesisAeon Diamond Interface Contract (v1.0)
+# Reference implementation: diamond_setup.protocol.DiamondPackage
+#
+# Γ rule: get_crep_state() / get_utac_state() require >= 1 run_cycle().
+# Before convergence: NotConvergedError (Gamma is an attractor, not t=0 noise).
+
+version: "1.0"
+required_methods:
+  - name: run_cycle
+    returns: object  # dict
+  - name: get_crep_state
+    returns: object
+    required_keys: [C, R, E, P, Gamma]
+    preconditions: [converged]
+  - name: get_utac_state
+    returns: object
+    required_keys: [H, H_star, K_eff]
+    preconditions: [converged]
+  - name: get_phase_events
+    returns: array
+  - name: to_zenodo_record
+    returns: object
+    required_keys: [title, description, creators]
+
+convergence:
+  rule: attractor
+  description: >
+    Numeric Gamma is only defined after at least one run_cycle().
+    Pre-cycle reads must raise NotConvergedError.
+
+python:
+  base_class: diamond_setup.protocol.DiamondPackage
+  validator: diamond_setup.validation.validate_diamond_instance

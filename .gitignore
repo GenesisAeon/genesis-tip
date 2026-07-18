@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+.uv/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Docs
+site/
+
+# Editors
+.vscode/
+.idea/
+*.swp

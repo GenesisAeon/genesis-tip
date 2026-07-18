@@ -1,0 +1,37 @@
+# Vollständige Q4 Runtime-Deklaration
+# Alle Layer aktiv: Geometry, State-Maschine, NATS-Kopplung.
+# Als Referenz für genesis-os, sigillin, unified-mandala.
+
+runtime:
+  version: "1.0"
+  protocol: q4
+
+  layers:
+
+    geometry:
+      enabled: true
+      phi_scaling: true   # Faktor 1.6 ≈ Φ (Engineering-Näherung, Fehler < 0.2%)
+
+    state:
+      enabled: true
+      bits: 4             # 4-Bit Q4-Zustandsraum
+      states: 16          # log₂(16) = 4 Bit — 16 Zustände, NICHT 16 Bit
+      thresholds:
+        C: 0.5            # Kohärenz-Schwellenwert (Standard aus LeChat-Analyse)
+        R: 0.6            # Resonanz-Schwellenwert
+        E: 0.7            # Emergenz-Schwellenwert
+        P: 0.8            # Poetik-Schwellenwert
+
+    coupling:
+      enabled: true
+      transport: nats
+      gray_code: true     # Nur Gray-Code-Übergänge erlaubt (Hamming-Distanz = 1)
+      subjects:
+        - "ga.frame."     # Q4-Zustände: ga.frame.0000 .. ga.frame.1111
+        - "ga.sigillin."  # Sigillin-Snapshots mit SHA256-ID
+        - "ga.agent."     # Agent-Zustandsupdates (coordinator, transform, …)
+        - "ga.resonance." # CREP-Float-Metrik-Updates
+
+  speculative:
+    efc_coupling: false         # Ephaptische Frame-Kopplung: AUS (nur efc-research-module)
+    consciousness_model: false  # Niemals in Produktion

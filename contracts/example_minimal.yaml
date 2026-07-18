@@ -1,0 +1,7 @@
+# Minimale Q4 Runtime-Deklaration
+# Aktiviert Q4-Protokoll mit Standard-Schwellenwerten.
+# Für Repos die nur den Zustandsraum nutzen, ohne NATS-Kopplung.
+
+runtime:
+  version: "1.0"
+  protocol: q4

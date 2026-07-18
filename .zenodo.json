@@ -1,0 +1,35 @@
+{
+  "title": "diamond-setup — P-INFRA-1: Universal Python project scaffold — generate professional project skeletons in seconds",
+  "description": "<p>Universal Python project scaffold — generate professional project skeletons in seconds.</p><p>Part of the <strong>GenesisAeon</strong> ecosystem (P-INFRA-1, domain: ecosystem infrastructure / template scaffold).</p><p>See <a href=\"https://github.com/GenesisAeon/diamond-setup\">github.com/GenesisAeon/diamond-setup</a> for source, documentation, and reproducibility notebooks.</p>",
+  "creators": [
+    {
+      "name": "Römer, Johann",
+      "affiliation": "Independent Researcher / MOR Research Collective"
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "GenesisAeon",
+    "P-INFRA-1",
+    "ecosystem infrastructure",
+    "UTAC",
+    "CREP",
+    "open science"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.19645351",
+      "relation": "isPartOf",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    }
+  ],
+  "version": "2.2.0",
+  "communities": [
+    {
+      "identifier": "genesisaeon"
+    }
+  ]
+}
