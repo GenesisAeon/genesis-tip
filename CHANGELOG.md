@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- `scripts/proxy_tip_scope_correlation_test.py`: corrected re-implementation
+  of `tip_scope_empirical_test_prompt.md`'s proxy Spearman-correlation test
+  against scope-resilience (P41), calling the real
+  `TemporalIntegrityProbe.run_cycle(context_entries=..., probes=...)` and
+  `ScopeResilience(...).run_cycle(...)` APIs end-to-end with an explicit,
+  clearly-labelled scripted (non-LLM) proxy `agent_fn`. See
+  `epistemic_status.md` ("Proxy test attempt (synthetic data) — 2026-07-28")
+  for the full account, including two real API mismatches found in the
+  original prompt and a methodological finding that no synthetic-data
+  encoding of this test is neutral (flipping one structural assumption
+  flips the pre-registered verdict from FALSIFIED to barely SUPPORTED).
+  Does not affect `GATE_CONDITIONS` — `real_session_data_available` stays
+  `False`.
+
 ## [0.1.1] - 2026-07-18
 
 ### Fixed
