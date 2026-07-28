@@ -1,0 +1,181 @@
+{
+  "data_source": "D:/mandala/Qwentest.txt, scored with grok_judge (retry pass for previously-failed pairs)",
+  "n_pairs_scored": 8,
+  "n_pairs_still_untested": 16,
+  "results": [
+    {
+      "case": 1,
+      "conversation_index": 0,
+      "perturbation_mode": "shuffle",
+      "tip_score": 1.0,
+      "rho_sem": 0.14683343046852051,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": null
+      },
+      "notes": [],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 0
+    },
+    {
+      "case": 2,
+      "conversation_index": 0,
+      "perturbation_mode": "gap",
+      "tip_score": 1.0,
+      "rho_sem": 0.14683343046852051,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": 0
+      },
+      "notes": [],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 0
+    },
+    {
+      "case": 3,
+      "conversation_index": 1,
+      "perturbation_mode": "shuffle",
+      "tip_score": 1.0,
+      "rho_sem": 0.11672545461629458,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": null
+      },
+      "notes": [
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
+      ],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 1
+    },
+    {
+      "case": 4,
+      "conversation_index": 1,
+      "perturbation_mode": "gap",
+      "tip_score": 1.0,
+      "rho_sem": 0.11672545461629458,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": 0
+      },
+      "notes": [
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
+      ],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 3
+    },
+    {
+      "case": 5,
+      "conversation_index": 1,
+      "perturbation_mode": "contradict",
+      "tip_score": 1.0,
+      "rho_sem": 0.11672545461629458,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": null
+      },
+      "notes": [
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
+      ],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 3
+    },
+    {
+      "case": 6,
+      "conversation_index": 3,
+      "perturbation_mode": "shuffle",
+      "tip_score": 1.0,
+      "rho_sem": 0.24868113838118863,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": null
+      },
+      "notes": [
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
+      ],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 3
+    },
+    {
+      "case": 7,
+      "conversation_index": 3,
+      "perturbation_mode": "gap",
+      "tip_score": 1.0,
+      "rho_sem": 0.24868113838118863,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": 0
+      },
+      "notes": [
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
+      ],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 3
+    },
+    {
+      "case": 8,
+      "conversation_index": 3,
+      "perturbation_mode": "contradict",
+      "tip_score": 1.0,
+      "rho_sem": 0.24868113838118863,
+      "consistency_breakdown": {
+        "agent_id": "qwen-live-pilot-judged",
+        "mode": "fragmented",
+        "n_turns": 3,
+        "self_reference_inconsistency_count": 0,
+        "contradiction_count": 0,
+        "recovery_rate": 0.0,
+        "orientation_latency": null
+      },
+      "notes": [
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
+        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
+      ],
+      "retry_pairs_resolved": 0,
+      "retry_pairs_still_failed": 3
+    }
+  ]
+}

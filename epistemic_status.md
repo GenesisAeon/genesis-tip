@@ -417,6 +417,21 @@ attempt, not decided or scheduled here.
 **Gate impact: none.** No conclusion is drawn either way about the
 pre-registered hypothesis from this partial run.
 
+**Retry attempt (same day):** tried `scripts/retry_qwen_judge_failures.py`
+— exactly the 16 previously-failed pairs, in 2 blocks of 8 with 35s
+pacing between calls and a 90s pause between blocks, per Johann's
+suggestion. **All 16 failed again, immediately, with the same "usage
+limit for now" message** — including the very first call of block 1.
+This rules out a simple per-minute rate limit as the (sole) blocker: a
+single ad-hoc sanity call succeeded shortly after the original failures
+(some real time had passed), but a batch retry minutes later did not,
+even with generous pacing. Reads as a longer-duration (likely daily)
+usage cap on the free tier, not something request pacing or short waits
+resolve. Left as-is rather than retried further; `n_pairs_scored` stays
+at 8 of 24 (`qwen_live_pilot_judged_results_final.json`). Revisiting
+this needs either real elapsed time (hours+) or a non-free tier/backend
+— Johann's call, not scheduled here.
+
 ## What this package does NOT claim
 
 Inherited in full from genesis-mssc's `docs/epistemic_boundaries.md`
