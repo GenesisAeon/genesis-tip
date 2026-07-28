@@ -45,6 +45,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   text deliberately engineered to match their exact patterns (as the
   earlier proxy test's scripted agent did). See `epistemic_status.md`
   ("Live-agent pilot — 2026-07-28"). Does not affect `GATE_CONDITIONS`.
+- `src/genesis_tip/metrics/llm_judge.py`: optional, pluggable semantic
+  contradiction judge (`JudgeCallable`) closing the gap identified above.
+  Wired into `score_session(result, judge=...)` and
+  `TemporalIntegrityProbe(..., judge=...)`, both defaulting to `None` —
+  no behaviour change for existing callers, no new hard dependency.
+  `grok_judge` is a concrete implementation backed by the `grok` CLI.
+  Real-data re-run of the 8-case Qwen batch: only 8 of 24 calls actually
+  completed (the rest hit the free "Grok Build" tier's rate/usage
+  limits, recorded as notes, not crashes) — of those 8, none found a
+  contradiction; the other 16 pairs are untested, not "tested and
+  found consistent." `timeout` default raised 30s→60s (real answers
+  are much longer than sanity-test strings); new opt-in
+  `min_interval_seconds` param to pace future batches against a rate
+  limit like the one hit here. A privacy issue was caught and fixed
+  before commit: `subprocess.TimeoutExpired`'s default string embeds
+  the full command (i.e. judged text) — `grok_judge` no longer
+  reproduces it in `JudgeError` messages; regression test added. See
+  `epistemic_status.md` ("LLM-judge integration — 2026-07-28"). Does
+  not affect `GATE_CONDITIONS`.
 
 ## [0.1.1] - 2026-07-18
 

@@ -38,6 +38,7 @@ from genesis_tip.manipulations.contradiction_injection import contradiction_inje
 from genesis_tip.manipulations.gap_injection import gap_injection
 from genesis_tip.manipulations.temporal_shuffle import temporal_shuffle
 from genesis_tip.metrics.consistency_scorer import ConsistencyScore, score_session
+from genesis_tip.metrics.llm_judge import JudgeCallable
 
 _MANIPULATORS = {
     "shuffle": lambda entries: temporal_shuffle(entries),
@@ -84,6 +85,7 @@ class TemporalIntegrityProbe:
         self,
         agent_fn: AgentCallable | None = None,
         perturbation_mode: str = "shuffle",
+        judge: JudgeCallable | None = None,
     ) -> None:
         if perturbation_mode not in (*_MANIPULATORS, "contradict"):
             raise ValueError(
@@ -92,6 +94,7 @@ class TemporalIntegrityProbe:
             )
         self._agent_fn: AgentCallable = agent_fn or _dummy_agent
         self.perturbation_mode = perturbation_mode
+        self._judge = judge
         self._sessions: list[dict[str, Any]] = []
         self._consistency_scores: list[float] = []
         self._gate_status = current_gate_status()
@@ -138,7 +141,7 @@ class TemporalIntegrityProbe:
             manipulator=manipulator,
         )
         result = runner.run(context_entries, probes)
-        score = score_session(result)
+        score = score_session(result, judge=self._judge)
         derived_score = self._derive_scalar_score(score)
 
         self._sessions.append({"result": result, "score": score})

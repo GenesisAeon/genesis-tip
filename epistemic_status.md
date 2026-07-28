@@ -350,6 +350,73 @@ data" is, again, left as an open question for maintainer review, not
 decided here — though note it no longer matters much until the scorer
 itself is addressed.
 
+## LLM-judge integration — 2026-07-28
+
+Direct response to the finding above: `metrics/llm_judge.py` adds an
+**optional**, pluggable semantic contradiction judge —
+`JudgeCallable = Callable[[str, str], bool]` — wired into
+`score_session(result, judge=...)` (default `None`, so every existing
+regex-only result is unchanged; 90 pre-existing tests still pass
+unmodified) and into `TemporalIntegrityProbe(..., judge=...)`. genesis-tip
+takes on no new hard dependency — any backend can be plugged in by
+writing a function with that signature.
+
+`grok_judge` is one concrete implementation, backed by the already-
+installed, already-authenticated `grok` CLI (xAI's agentic coding tool,
+called single-turn/headless via `grok -p`) — chosen only because it was
+what was available, not for any special relationship with xAI. Verified
+independently first (real subprocess call, mocked-test-free): correctly
+returned `YES` for a clear contradiction and `NO` for a consistent pair.
+
+**Real-data run — a genuinely different, more informative outcome
+than expected.** Re-scored the same 8 Qwen live-pilot cases
+(`scripts/score_qwen_live_test_with_judge.py`) — 24 judge calls (3 pairs
+× 8 cases). Only **8 of 24 calls actually completed**; the other 16
+failed outright once the free "Grok Build" tier's limits were hit
+(observed errors: a strict per-minute request-rate limit — the service's
+own message cited "Requests per Minute (actual/limit): 2" — and a
+separate free-usage cap once exhausted), each recorded as a note rather
+than crashing the run. **Of the 8 that did complete, all 8 said "no
+contradiction."** This does *not* support a clean "these real sessions
+genuinely contain no contradictions" conclusion the way it might first
+look — 16 of 24 pairs were simply never evaluated, not evaluated-and-
+found-consistent. The honest status is: a small (n=8), possibly real
+signal, majority untested due to hitting an external free-tier quota
+mid-run — sharper and more honest than either "falsified" or
+"untested" would claim alone.
+
+Two concrete fixes followed directly from this run, both evidence-driven:
+- `timeout` default raised from 30s → 60s (4 of the 24 calls timed out —
+  real Qwen answers ran several KB, much longer than short sanity-test
+  strings).
+- New `min_interval_seconds` parameter (default `0`, opt-in) to pace
+  sequential calls and respect a rate limit like the one hit here —
+  not used automatically, since a single ad-hoc call doesn't need it.
+
+**Privacy note (caught before committing, not after):** the first
+version of the sanitized-error path still leaked real Qwen text into
+`qwen_live_pilot_judged_results.json` — Python's
+`subprocess.TimeoutExpired` embeds the full command (i.e. the judged
+text verbatim) in its default string representation, and the original
+`except ... as exc: raise JudgeError(f"...: {exc}")` handler reproduced
+that. Fixed in `grok_judge` to report only the timeout duration, never
+`exc`/`exc.cmd`, for `TimeoutExpired` specifically; added a regression
+test (`test_timeout_error_does_not_leak_judged_text`) asserting a marker
+string embedded in the judged text never appears in the raised message.
+Results file was deleted and regenerated after the fix, not just edited.
+
+**Assessment:** the judge mechanism itself works as designed — it's
+`consistency_scorer.py`'s missing piece, confirmed both by an isolated
+sanity check and by successfully completing a third of a real batch. What
+this run could *not* establish is whether the remaining, untested real
+Qwen pairs would have shown genuine contradictions or not; re-running at
+full n≥30 needs either respecting the free tier's pacing (slow) or a
+paid tier / different backend. Left for Johann to decide when to
+attempt, not decided or scheduled here.
+
+**Gate impact: none.** No conclusion is drawn either way about the
+pre-registered hypothesis from this partial run.
+
 ## What this package does NOT claim
 
 Inherited in full from genesis-mssc's `docs/epistemic_boundaries.md`

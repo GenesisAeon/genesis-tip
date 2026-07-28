@@ -12,11 +12,13 @@ This applies to every downstream report that cites these metrics.
 
 from __future__ import annotations
 
+import itertools
 import re
 from dataclasses import dataclass, field
 from typing import Any
 
 from genesis_tip.harness.session_runner import SessionResult, Turn
+from genesis_tip.metrics.llm_judge import JudgeCallable, JudgeError
 
 # Keywords that indicate the agent is explicitly acknowledging an inconsistency
 _RECOVERY_PATTERNS = [
@@ -68,13 +70,27 @@ class ConsistencyScore:
         }
 
 
-def score_session(result: SessionResult) -> ConsistencyScore:
+def score_session(
+    result: SessionResult,
+    judge: JudgeCallable | None = None,
+) -> ConsistencyScore:
     """Compute all TIP consistency metrics for one session result.
 
     Parameters
     ----------
     result:
         Output of ``SessionRunner.run()``.
+    judge:
+        Optional semantic contradiction judge (see ``metrics/llm_judge.py``).
+        When given, every unique pair of turn responses is additionally
+        checked via ``judge(text_a, text_b) -> bool`` and any pair the
+        judge flags is appended to ``contradiction_pairs``. This is O(n^2)
+        in turn count and, for real backends, makes real metered calls —
+        opt-in only, ``None`` by default preserves the regex-only
+        behaviour exactly as before. See ``metrics/llm_judge.py`` module
+        docstring and ``epistemic_status.md`` (2026-07-28 entries) for why
+        this exists: the regex-only detectors below essentially never fire
+        on naturalistic text, live-generated or not.
 
     Returns
     -------
@@ -92,6 +108,8 @@ def score_session(result: SessionResult) -> ConsistencyScore:
     _score_contradictions(score, responses)
     _score_recovery(score, result.turns)
     _score_orientation_latency(score, result.turns, result.manipulation_logs)
+    if judge is not None:
+        _score_contradictions_with_judge(score, responses, judge)
 
     return score
 
@@ -140,8 +158,11 @@ def _score_contradictions(score: ConsistencyScore, responses: list[str]) -> None
     """Detect factual contradictions between turns using pattern matching.
 
     Looks for numeric or boolean claims that appear in multiple turns with
-    conflicting values. A full semantic contradiction check requires an
-    LLM-judge (see report template for how to add one).
+    conflicting values. Only catches the literal "the X is/was N" pattern —
+    see ``_score_contradictions_with_judge`` (opt-in, via ``score_session``'s
+    ``judge`` parameter) for a full semantic check, and ``metrics/llm_judge.py``
+    for why this regex-only version essentially never fires on naturalistic
+    text (confirmed empirically, see ``epistemic_status.md`` 2026-07-28).
     """
     value_re = re.compile(r"(the \w+(?: \w+)? (?:is|was|equals?|=)\s*)([\d.]+)", re.IGNORECASE)
 
@@ -160,6 +181,33 @@ def _score_contradictions(score: ConsistencyScore, responses: list[str]) -> None
                 t2, v2 = occurrences[i + 1]
                 if v1 != v2:
                     score.contradiction_pairs.append((t1, t2, f"'{key}': {v1} vs {v2}"))
+
+
+def _score_contradictions_with_judge(
+    score: ConsistencyScore,
+    responses: list[str],
+    judge: JudgeCallable,
+) -> None:
+    """Semantic contradiction check via an LLM judge (opt-in, see ``score_session``).
+
+    Checks every unique pair of turn responses — O(n_turns^2) judge calls.
+    Pairs already caught by ``_score_contradictions``' regex are not
+    re-added; ``contradiction_pairs`` entries are tagged ``(llm-judge)`` in
+    their description so the source of detection stays distinguishable.
+    A judge failure (see ``JudgeError``) for one pair is recorded as a note
+    and does not abort scoring the rest of the session.
+    """
+    already_flagged = {(t1, t2) for t1, t2, _ in score.contradiction_pairs}
+    for i, j in itertools.combinations(range(len(responses)), 2):
+        if (i, j) in already_flagged:
+            continue
+        try:
+            contradicts = judge(responses[i], responses[j])
+        except JudgeError as exc:
+            score.notes.append(f"llm_judge: pair ({i}, {j}) failed - {exc}")
+            continue
+        if contradicts:
+            score.contradiction_pairs.append((i, j, "semantic contradiction (llm-judge)"))
 
 
 def _score_recovery(score: ConsistencyScore, turns: list[Turn]) -> None:
