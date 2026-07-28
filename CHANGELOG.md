@@ -32,6 +32,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   perturbation that didn't exist when it was generated. See
   `epistemic_status.md` ("Real-session attempt — 2026-07-28") for the
   full account. Does not affect `GATE_CONDITIONS`.
+- `scripts/score_qwen_live_test.py`: closes the gap identified above with
+  a genuine live-agent pilot — Johann manually ran the same perturbed
+  real context + real probes through Qwen (a live model) and supplied
+  the answers (`D:/mandala/Qwentest.txt`, 8 cases). Result: `tip_score`
+  is still exactly `1.0` for all 8 pairs, live generation included. This
+  is a third, more fundamental finding: with the agent-ignores-context
+  problem and the replay-timing problem both ruled out, the remaining
+  cause is `metrics/consistency_scorer.py`'s narrow regex-based
+  self-reference/contradiction detectors, which essentially never fire
+  on naturalistic text of any kind (dummy, replayed, or live) — only on
+  text deliberately engineered to match their exact patterns (as the
+  earlier proxy test's scripted agent did). See `epistemic_status.md`
+  ("Live-agent pilot — 2026-07-28"). Does not affect `GATE_CONDITIONS`.
 
 ## [0.1.1] - 2026-07-18
 

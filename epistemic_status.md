@@ -279,6 +279,77 @@ of question `crep_gate.py`'s own governance reserves for an explicit,
 documented maintainer decision — recorded here as an open question, not
 decided unilaterally.
 
+## Live-agent pilot (real human-in-the-loop generation) — 2026-07-28
+
+Direct follow-up closing the gap the run above identified: Johann
+manually ran the same perturbed `CONTEXT` blocks + real probes through
+Qwen himself (a live model, generating fresh text *after* seeing each
+perturbation — no replay, no script), and supplied the answers back
+(`D:/mandala/Qwentest.txt`, 8 cases across 3 real conversations ×
+shuffle/gap/contradict, one contradict case skipped as before for
+lacking a substitutable number). `scripts/score_qwen_live_test.py`
+re-derives the exact same context/probes deterministically and scores
+Qwen's real, live-generated `A1`/`A2`/`A3` replies (an initial `A0`
+reaction to the context alone was also collected but isn't part of the
+pre-registered turn structure, so isn't scored).
+
+**Result: `tip_score` is exactly `1.0` for all 8 pairs — zero
+variance again — despite Qwen's replies being genuinely different every
+time** (topics ranged freely across the 8 cases; inspected only via
+`consistency_breakdown` counts, not reproduced here). `consistency_breakdown`
+confirms why: `self_reference_inconsistency_count: 0` and
+`contradiction_count: 0` in every single case, live generation included.
+
+**This is a third, different, and more fundamental finding than the
+previous two — it points at the scorer, not at the data or the agent:**
+
+1. Dummy agent (synthetic, ignores context) → constant 1.0. (agent problem)
+2. Replayed real historical response (real data, fixed before
+   perturbation existed) → constant 1.0. (causal-timing problem)
+3. **Live-generated real response from a real model, reacting to the
+   real perturbed context in real time → still constant 1.0.**
+
+With the agent problem (1) and the timing problem (2) both ruled out,
+what's left is `metrics/consistency_scorer.py` itself:
+`_score_self_references` only counts an inconsistency when a negated
+statement (`"did not"`/`"have not"`/`"was not"`...) has >50% word-overlap
+with a positive statement elsewhere, and `_score_contradictions` only
+fires on the literal pattern `"the <word(s)> is/was/equals <number>"`
+repeated with a different number. The module's own docstring already
+flags this: *"A full semantic comparison would require an LLM-judge —
+see report template for how to add one."* Confirmed now empirically,
+not just by reading the code: **rich, natural, free-ranging text —
+whether dummy, replayed-real, or live-generated-real — essentially
+never happens to satisfy these two narrow syntactic patterns.** The
+proxy test earlier (`scripts/proxy_tip_scope_correlation_test.py`)
+only produced a varying `tip_score` because its scripted agent was
+deliberately engineered to restate a literal `"the marker value is N"`
+claim — i.e., the *only* condition under which this scorer currently
+produces a non-constant signal is when the test author manufactures
+text matching its exact regex, not naturalistic model output of any
+kind.
+
+**Assessment:** three independent attempts (synthetic-replay,
+real-historical-replay, real-live-generation) now converge on the same
+conclusion from different angles. This one is the most actionable: it
+points squarely at `consistency_scorer.py`'s current self-reference and
+contradiction detectors as the limiting factor, not at data provenance
+or agent design. A meaningful TIP score on realistic (rather than
+purpose-built) text needs a broader consistency check — semantic
+similarity / NLI-style contradiction detection or an LLM-judge, as the
+module already anticipates — before either the proxy or the real
+pre-registered correlation test can produce a signal that isn't just an
+artifact of how narrowly the test content was engineered.
+
+**Gate impact: none**, and this finding doesn't change that assessment
+— if anything it clarifies that scoring needs to improve before the
+`n>=30` real-session test (gate conditions a/d/e) would be worth running
+at full scale. `real_session_data_available` and `GATE_CONDITIONS`
+untouched; whether the live-Qwen data itself counts as "real session
+data" is, again, left as an open question for maintainer review, not
+decided here — though note it no longer matters much until the scorer
+itself is addressed.
+
 ## What this package does NOT claim
 
 Inherited in full from genesis-mssc's `docs/epistemic_boundaries.md`
