@@ -21,6 +21,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   flips the pre-registered verdict from FALSIFIED to barely SUPPORTED).
   Does not affect `GATE_CONDITIONS` — `real_session_data_available` stays
   `False`.
+- `scripts/real_session_tip_scope_test.py`: follow-up using real data —
+  `unified-mandala/docs/sigils/conversations.json`, a confirmed genuine
+  OpenAI ChatGPT export (264 conversations, ~28,888 messages). Real
+  context entries, real probes, and a replay `agent_fn` returning the
+  real historical assistant response, run through shuffle/gap/contradict.
+  Result: `tip_score` is exactly `1.0` for all 40 scored pairs (zero
+  variance) — not because the pipeline is broken, but because a replayed
+  pre-recorded response structurally cannot reflect sensitivity to a
+  perturbation that didn't exist when it was generated. See
+  `epistemic_status.md` ("Real-session attempt — 2026-07-28") for the
+  full account. Does not affect `GATE_CONDITIONS`.
 
 ## [0.1.1] - 2026-07-18
 

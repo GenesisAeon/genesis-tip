@@ -203,6 +203,82 @@ both sides.
 **Gate impact: none.** `real_session_data_available` remains `False`;
 `GATE_CONDITIONS` in `crep_gate.py` untouched.
 
+## Real-session attempt — 2026-07-28
+
+Following on directly from the proxy test above, tried the real next
+step it recommends: real conversation data instead of synthetic
+sessions. `scripts/real_session_tip_scope_test.py`.
+
+**Data confirmed genuine.** `unified-mandala/docs/sigils/conversations.json`
+is a real, unmodified OpenAI ChatGPT data export — confirmed by schema,
+not assumed: `gizmo_id`, `gizmo_type`, `default_model_slug` (e.g.
+`"gpt-4o"`), a `mapping` DAG of message nodes with `author.role` and
+per-message Unix `create_time`. 264 conversations, ~28,888 messages.
+264 → 142 conversations have ≥10 usable text-only user/assistant turns.
+
+**Design:** for 15 real conversations, the first 8 real chronological
+turns became `ContextEntry` objects (real timestamps, real text); the
+next 3 real (user, assistant) turn pairs from the *same transcript*
+supplied both the probes and — via a replay `agent_fn` — the real
+historical assistant response that actually followed each one. No live
+LLM call, no synthetic text anywhere on the TIP side. Perturbation:
+shuffle / gap / contradict (contradiction spec built from a real number
+found in the conversation's own first entry). Rho_sem side: domain
+classified from title keywords (mostly resolved to `general` — this
+corpus is GenesisAeon/Codex development chat, not physics/ecology
+research); structural inputs bucketed by real total-turn-count tertile
+into the same verified sub-peak Γ_sem triples used in the corrected
+proxy run, to avoid the Γ_max ceiling artefact found there.
+
+**Result: `tip_score` is exactly `1.0` for all 40 scored pairs — zero
+variance — regardless of domain, real conversation, or perturbation
+mode.** `scipy.stats.spearmanr` correctly reports `ConstantInputWarning`
+/ `nan`; the script's own fallback verdict ("FALSIFIED" for rho < 0.3)
+is misleading in this case and should read **NO SIGNAL**, not
+"falsified" — flagging this here rather than silently accepting the
+script's generic verdict string. See `scripts/real_session_tip_scope_results.json`
+(numeric/derived fields only — no message text or titles persisted, by
+design).
+
+**Why constant, and why this is a different problem than the earlier
+proxy-test finding, not the same one recurring:** the earlier finding
+was "the default dummy agent ignores context entirely." This is real
+context and a real historical response — genuinely not the same bug.
+But the replayed response is a **fixed, already-recorded text**,
+produced by the real assistant *before* any of TIP's perturbations
+existed. `metrics/consistency_scorer.py` can only detect inconsistency
+*within* the response text actually supplied (self-reference
+contradictions, repeated-but-differing numeric claims). A real
+historical multi-turn reply about GenesisAeon/software topics
+essentially never happens to contain the narrow syntactic patterns the
+heuristic looks for (`"I did X"` vs `"I did not do X"`; `"the X is N"`
+repeated with a different N) — and, structurally, it *cannot* reflect
+sensitivity to the perturbation at all, because replaying a
+pre-recorded response can never show the causal effect TIP is designed
+to probe (does perturbing context change what the agent says next).
+**That causal question can only be answered by an agent that actually
+receives the perturbed context and generates a new response at test
+time** — a live local/API model, or (as a smaller intermediate step not
+yet attempted) a scripted agent that mechanically reacts to whatever
+real context text is actually presented to it after perturbation
+(analogous to the proxy test's scripted agent, but reading real rather
+than synthetic content).
+
+**Assessment:** this real-data attempt is a genuine, meaningful
+negative result, not a failure — it demonstrates precisely which piece
+is still missing (a response-generation step that actually runs *at*
+perturbation time), independent of the earlier proxy test's separate
+finding (arbitrary-encoding sensitivity) and independent of data realness
+(this data is 100% real).
+
+**Gate impact: still none, but for a more precise reason than before.**
+`real_session_data_available` remains `False`. Whether "real conversation
+context + real historical response, replayed" should count as satisfying
+this condition even without a live generation step is exactly the kind
+of question `crep_gate.py`'s own governance reserves for an explicit,
+documented maintainer decision — recorded here as an open question, not
+decided unilaterally.
+
 ## What this package does NOT claim
 
 Inherited in full from genesis-mssc's `docs/epistemic_boundaries.md`
