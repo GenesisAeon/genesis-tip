@@ -1,7 +1,7 @@
 {
   "data_source": "D:/mandala/Qwentest.txt, scored with grok_judge (retry pass for previously-failed pairs)",
-  "n_pairs_scored": 8,
-  "n_pairs_still_untested": 16,
+  "n_pairs_scored": 24,
+  "n_pairs_still_untested": 0,
   "results": [
     {
       "case": 1,
@@ -56,11 +56,9 @@
         "recovery_rate": 0.0,
         "orientation_latency": null
       },
-      "notes": [
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
-      ],
-      "retry_pairs_resolved": 0,
-      "retry_pairs_still_failed": 1
+      "notes": [],
+      "retry_pairs_resolved": 1,
+      "retry_pairs_still_failed": 0
     },
     {
       "case": 4,
@@ -77,13 +75,9 @@
         "recovery_rate": 0.0,
         "orientation_latency": 0
       },
-      "notes": [
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
-      ],
-      "retry_pairs_resolved": 0,
-      "retry_pairs_still_failed": 3
+      "notes": [],
+      "retry_pairs_resolved": 3,
+      "retry_pairs_still_failed": 0
     },
     {
       "case": 5,
@@ -100,13 +94,9 @@
         "recovery_rate": 0.0,
         "orientation_latency": null
       },
-      "notes": [
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
-      ],
-      "retry_pairs_resolved": 0,
-      "retry_pairs_still_failed": 3
+      "notes": [],
+      "retry_pairs_resolved": 3,
+      "retry_pairs_still_failed": 0
     },
     {
       "case": 6,
@@ -123,13 +113,9 @@
         "recovery_rate": 0.0,
         "orientation_latency": null
       },
-      "notes": [
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
-      ],
-      "retry_pairs_resolved": 0,
-      "retry_pairs_still_failed": 3
+      "notes": [],
+      "retry_pairs_resolved": 3,
+      "retry_pairs_still_failed": 0
     },
     {
       "case": 7,
@@ -146,13 +132,9 @@
         "recovery_rate": 0.0,
         "orientation_latency": 0
       },
-      "notes": [
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
-      ],
-      "retry_pairs_resolved": 0,
-      "retry_pairs_still_failed": 3
+      "notes": [],
+      "retry_pairs_resolved": 3,
+      "retry_pairs_still_failed": 0
     },
     {
       "case": 8,
@@ -169,13 +151,9 @@
         "recovery_rate": 0.0,
         "orientation_latency": null
       },
-      "notes": [
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build",
-        "retry also failed: grok CLI exited 1: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build\nError: You\u00e2\u20ac\u2122ve reached your free Grok Build usage limit for now. Get SuperGrok for much higher limits, or try again later: https://grok.com/supergrok?referrer=grok-build"
-      ],
-      "retry_pairs_resolved": 0,
-      "retry_pairs_still_failed": 3
+      "notes": [],
+      "retry_pairs_resolved": 3,
+      "retry_pairs_still_failed": 0
     }
   ]
 }

@@ -432,6 +432,32 @@ at 8 of 24 (`qwen_live_pilot_judged_results_final.json`). Revisiting
 this needs either real elapsed time (hours+) or a non-free tier/backend
 — Johann's call, not scheduled here.
 
+**Completion (2026-07-31):** Johann upgraded to SuperGrok, removing the
+free-tier usage cap. Re-ran `scripts/retry_qwen_judge_failures.py`
+unchanged (same 16 target pairs, same 35s/90s pacing) — **all 16 of 16
+resolved this time, 0 failures.** Confirms the earlier diagnosis: the
+blocker really was the free tier's usage cap, not anything about the
+judge implementation, the pacing, or the data. `n_pairs_scored` is now
+24 of 24 (`qwen_live_pilot_judged_results_final.json`) — the full,
+complete real-data judge run.
+
+**Result: no contradiction found in any of the 24 real, live-generated
+Qwen response pairs.** All 24 judge calls returned NO. Combined with the
+earlier finding that the regex-only scorer was structurally blind to
+this data (Section above, "root cause"), this is now a real, complete
+(if small, n=24 pairs from 8 sessions) empirical answer, not a partial
+one: for this specific pilot batch, an actual LLM judge examining actual
+live-generated content across genuine TIP perturbations did not detect
+self-contradiction. This is a null result on a small sample, not
+"contradictions don't happen" - n=8 sessions is far below the
+pre-registered n≥30 threshold for any directional verdict on the TIP x
+scope-resilience correlation hypothesis itself (see the Spearman-rho
+verdict logic in `score_qwen_live_test_with_judge.py`, `MIN_N = 30`).
+**Gate impact: still none** - this closes out the LLM-judge
+infrastructure question (does a real judge work end-to-end on real
+data? yes), not the underlying pre-registered hypothesis, which needs a
+larger sample to answer either way.
+
 ## What this package does NOT claim
 
 Inherited in full from genesis-mssc's `docs/epistemic_boundaries.md`
