@@ -1,0 +1,368 @@
+{
+  "n": 45,
+  "spearman_rho": 0.3221338192219733,
+  "p_value": 0.030926192860866925,
+  "threshold": 0.3,
+  "min_sample_size": 30,
+  "verdict": "SUPPORTED",
+  "domain_results": {
+    "physics_dense": {
+      "rho": 1.0,
+      "p": 0.0,
+      "n": 9
+    },
+    "sparse_fringe": {
+      "rho": 1.0,
+      "p": 0.0,
+      "n": 9
+    },
+    "curated_graph": {
+      "rho": 1.0,
+      "p": 0.0,
+      "n": 9
+    },
+    "general": {
+      "rho": 1.0,
+      "p": 0.0,
+      "n": 9
+    },
+    "ecology": {
+      "rho": 1.0,
+      "p": 0.0,
+      "n": 9
+    }
+  },
+  "coherence_means": {
+    "high": {
+      "mean_tip": 1.0,
+      "mean_rho_sem": 0.1762001165622246
+    },
+    "medium": {
+      "mean_tip": 0.6666666666666666,
+      "mean_rho_sem": 0.16578742558745907
+    },
+    "low": {
+      "mean_tip": 0.3333333333333333,
+      "mean_rho_sem": 0.1400705455395535
+    }
+  },
+  "cases": [
+    {
+      "path_id": "physics_dense_high_0",
+      "domain": "physics_dense",
+      "coherence_level": "high",
+      "rho_sem": 0.23493348874963285,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "physics_dense_high_1",
+      "domain": "physics_dense",
+      "coherence_level": "high",
+      "rho_sem": 0.23493348874963285,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "physics_dense_high_2",
+      "domain": "physics_dense",
+      "coherence_level": "high",
+      "rho_sem": 0.23493348874963285,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "physics_dense_medium_0",
+      "domain": "physics_dense",
+      "coherence_level": "medium",
+      "rho_sem": 0.22104990078327877,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "physics_dense_medium_1",
+      "domain": "physics_dense",
+      "coherence_level": "medium",
+      "rho_sem": 0.22104990078327877,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "physics_dense_medium_2",
+      "domain": "physics_dense",
+      "coherence_level": "medium",
+      "rho_sem": 0.22104990078327877,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "physics_dense_low_0",
+      "domain": "physics_dense",
+      "coherence_level": "low",
+      "rho_sem": 0.18676072738607136,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "physics_dense_low_1",
+      "domain": "physics_dense",
+      "coherence_level": "low",
+      "rho_sem": 0.18676072738607136,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "physics_dense_low_2",
+      "domain": "physics_dense",
+      "coherence_level": "low",
+      "rho_sem": 0.18676072738607136,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "sparse_fringe_high_0",
+      "domain": "sparse_fringe",
+      "coherence_level": "high",
+      "rho_sem": 0.08810005828111231,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "sparse_fringe_high_1",
+      "domain": "sparse_fringe",
+      "coherence_level": "high",
+      "rho_sem": 0.08810005828111231,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "sparse_fringe_high_2",
+      "domain": "sparse_fringe",
+      "coherence_level": "high",
+      "rho_sem": 0.08810005828111231,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "sparse_fringe_medium_0",
+      "domain": "sparse_fringe",
+      "coherence_level": "medium",
+      "rho_sem": 0.08289371279372953,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "sparse_fringe_medium_1",
+      "domain": "sparse_fringe",
+      "coherence_level": "medium",
+      "rho_sem": 0.08289371279372953,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "sparse_fringe_medium_2",
+      "domain": "sparse_fringe",
+      "coherence_level": "medium",
+      "rho_sem": 0.08289371279372953,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "sparse_fringe_low_0",
+      "domain": "sparse_fringe",
+      "coherence_level": "low",
+      "rho_sem": 0.07003527276977675,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "sparse_fringe_low_1",
+      "domain": "sparse_fringe",
+      "coherence_level": "low",
+      "rho_sem": 0.07003527276977675,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "sparse_fringe_low_2",
+      "domain": "sparse_fringe",
+      "coherence_level": "low",
+      "rho_sem": 0.07003527276977675,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "curated_graph_high_0",
+      "domain": "curated_graph",
+      "coherence_level": "high",
+      "rho_sem": 0.26430017484333695,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "curated_graph_high_1",
+      "domain": "curated_graph",
+      "coherence_level": "high",
+      "rho_sem": 0.26430017484333695,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "curated_graph_high_2",
+      "domain": "curated_graph",
+      "coherence_level": "high",
+      "rho_sem": 0.26430017484333695,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "curated_graph_medium_0",
+      "domain": "curated_graph",
+      "coherence_level": "medium",
+      "rho_sem": 0.24868113838118863,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "curated_graph_medium_1",
+      "domain": "curated_graph",
+      "coherence_level": "medium",
+      "rho_sem": 0.24868113838118863,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "curated_graph_medium_2",
+      "domain": "curated_graph",
+      "coherence_level": "medium",
+      "rho_sem": 0.24868113838118863,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "curated_graph_low_0",
+      "domain": "curated_graph",
+      "coherence_level": "low",
+      "rho_sem": 0.21010581830933023,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "curated_graph_low_1",
+      "domain": "curated_graph",
+      "coherence_level": "low",
+      "rho_sem": 0.21010581830933023,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "curated_graph_low_2",
+      "domain": "curated_graph",
+      "coherence_level": "low",
+      "rho_sem": 0.21010581830933023,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "general_high_0",
+      "domain": "general",
+      "coherence_level": "high",
+      "rho_sem": 0.14683343046852051,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "general_high_1",
+      "domain": "general",
+      "coherence_level": "high",
+      "rho_sem": 0.14683343046852051,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "general_high_2",
+      "domain": "general",
+      "coherence_level": "high",
+      "rho_sem": 0.14683343046852051,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "general_medium_0",
+      "domain": "general",
+      "coherence_level": "medium",
+      "rho_sem": 0.13815618798954923,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "general_medium_1",
+      "domain": "general",
+      "coherence_level": "medium",
+      "rho_sem": 0.13815618798954923,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "general_medium_2",
+      "domain": "general",
+      "coherence_level": "medium",
+      "rho_sem": 0.13815618798954923,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "general_low_0",
+      "domain": "general",
+      "coherence_level": "low",
+      "rho_sem": 0.11672545461629458,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "general_low_1",
+      "domain": "general",
+      "coherence_level": "low",
+      "rho_sem": 0.11672545461629458,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "general_low_2",
+      "domain": "general",
+      "coherence_level": "low",
+      "rho_sem": 0.11672545461629458,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "ecology_high_0",
+      "domain": "ecology",
+      "coherence_level": "high",
+      "rho_sem": 0.14683343046852051,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "ecology_high_1",
+      "domain": "ecology",
+      "coherence_level": "high",
+      "rho_sem": 0.14683343046852051,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "ecology_high_2",
+      "domain": "ecology",
+      "coherence_level": "high",
+      "rho_sem": 0.14683343046852051,
+      "consistency_score": 1.0
+    },
+    {
+      "path_id": "ecology_medium_0",
+      "domain": "ecology",
+      "coherence_level": "medium",
+      "rho_sem": 0.13815618798954923,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "ecology_medium_1",
+      "domain": "ecology",
+      "coherence_level": "medium",
+      "rho_sem": 0.13815618798954923,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "ecology_medium_2",
+      "domain": "ecology",
+      "coherence_level": "medium",
+      "rho_sem": 0.13815618798954923,
+      "consistency_score": 0.6666666666666667
+    },
+    {
+      "path_id": "ecology_low_0",
+      "domain": "ecology",
+      "coherence_level": "low",
+      "rho_sem": 0.11672545461629458,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "ecology_low_1",
+      "domain": "ecology",
+      "coherence_level": "low",
+      "rho_sem": 0.11672545461629458,
+      "consistency_score": 0.33333333333333337
+    },
+    {
+      "path_id": "ecology_low_2",
+      "domain": "ecology",
+      "coherence_level": "low",
+      "rho_sem": 0.11672545461629458,
+      "consistency_score": 0.33333333333333337
+    }
+  ],
+  "seed": 20260728,
+  "note": "PROXY TEST - synthetic sessions + scripted agent, not real LLM data."
+}

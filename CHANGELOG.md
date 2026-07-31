@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- `scripts/proxy_tip_scope_correlation_test.py`: corrected re-implementation
+  of `tip_scope_empirical_test_prompt.md`'s proxy Spearman-correlation test
+  against scope-resilience (P41), calling the real
+  `TemporalIntegrityProbe.run_cycle(context_entries=..., probes=...)` and
+  `ScopeResilience(...).run_cycle(...)` APIs end-to-end with an explicit,
+  clearly-labelled scripted (non-LLM) proxy `agent_fn`. See
+  `epistemic_status.md` ("Proxy test attempt (synthetic data) — 2026-07-28")
+  for the full account, including two real API mismatches found in the
+  original prompt and a methodological finding that no synthetic-data
+  encoding of this test is neutral (flipping one structural assumption
+  flips the pre-registered verdict from FALSIFIED to barely SUPPORTED).
+  Does not affect `GATE_CONDITIONS` — `real_session_data_available` stays
+  `False`.
+- `scripts/real_session_tip_scope_test.py`: follow-up using real data —
+  `unified-mandala/docs/sigils/conversations.json`, a confirmed genuine
+  OpenAI ChatGPT export (264 conversations, ~28,888 messages). Real
+  context entries, real probes, and a replay `agent_fn` returning the
+  real historical assistant response, run through shuffle/gap/contradict.
+  Result: `tip_score` is exactly `1.0` for all 40 scored pairs (zero
+  variance) — not because the pipeline is broken, but because a replayed
+  pre-recorded response structurally cannot reflect sensitivity to a
+  perturbation that didn't exist when it was generated. See
+  `epistemic_status.md` ("Real-session attempt — 2026-07-28") for the
+  full account. Does not affect `GATE_CONDITIONS`.
+- `scripts/score_qwen_live_test.py`: closes the gap identified above with
+  a genuine live-agent pilot — Johann manually ran the same perturbed
+  real context + real probes through Qwen (a live model) and supplied
+  the answers (`D:/mandala/Qwentest.txt`, 8 cases). Result: `tip_score`
+  is still exactly `1.0` for all 8 pairs, live generation included. This
+  is a third, more fundamental finding: with the agent-ignores-context
+  problem and the replay-timing problem both ruled out, the remaining
+  cause is `metrics/consistency_scorer.py`'s narrow regex-based
+  self-reference/contradiction detectors, which essentially never fire
+  on naturalistic text of any kind (dummy, replayed, or live) — only on
+  text deliberately engineered to match their exact patterns (as the
+  earlier proxy test's scripted agent did). See `epistemic_status.md`
+  ("Live-agent pilot — 2026-07-28"). Does not affect `GATE_CONDITIONS`.
+- `src/genesis_tip/metrics/llm_judge.py`: optional, pluggable semantic
+  contradiction judge (`JudgeCallable`) closing the gap identified above.
+  Wired into `score_session(result, judge=...)` and
+  `TemporalIntegrityProbe(..., judge=...)`, both defaulting to `None` —
+  no behaviour change for existing callers, no new hard dependency.
+  `grok_judge` is a concrete implementation backed by the `grok` CLI.
+  Real-data re-run of the 8-case Qwen batch: only 8 of 24 calls actually
+  completed (the rest hit the free "Grok Build" tier's rate/usage
+  limits, recorded as notes, not crashes) — of those 8, none found a
+  contradiction; the other 16 pairs are untested, not "tested and
+  found consistent." `timeout` default raised 30s→60s (real answers
+  are much longer than sanity-test strings); new opt-in
+  `min_interval_seconds` param to pace future batches against a rate
+  limit like the one hit here. A privacy issue was caught and fixed
+  before commit: `subprocess.TimeoutExpired`'s default string embeds
+  the full command (i.e. judged text) — `grok_judge` no longer
+  reproduces it in `JudgeError` messages; regression test added. See
+  `epistemic_status.md` ("LLM-judge integration — 2026-07-28"). Does
+  not affect `GATE_CONDITIONS`.
+
 ## [0.1.1] - 2026-07-18
 
 ### Fixed
