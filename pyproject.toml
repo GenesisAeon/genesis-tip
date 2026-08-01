@@ -1,6 +1,6 @@
 [project]
 name = "genesis-tip"
-version = "0.1.1"
+version = "0.2.0"
 description = "Temporal Integrity Probe — behavioural consistency testing for LLM agents under temporal context manipulation (GenesisAeon P50)"
 readme = "README.md"
 license = { text = "MIT" }

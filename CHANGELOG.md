@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-01
+
 ### Added
 - `scripts/proxy_tip_scope_correlation_test.py`: corrected re-implementation
   of `tip_scope_empirical_test_prompt.md`'s proxy Spearman-correlation test
