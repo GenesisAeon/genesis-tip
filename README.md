@@ -5,6 +5,7 @@
 [![CREPGate](https://img.shields.io/badge/CREPGate-blocked-red)](epistemic_status.md)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21731403.svg)](https://doi.org/10.5281/zenodo.21731403)
 
 **Measures whether LLM agents remain internally consistent when temporal
 context is manipulated.**

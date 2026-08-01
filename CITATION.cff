@@ -6,8 +6,8 @@ authors:
     given-names: Johann
     affiliation: "Independent Researcher / MOR Research Collective"
 title: "genesis-tip"
-version: "0.1.0"
-date-released: "2026-07-18"
+version: "0.2.0"
+date-released: "2026-08-01"
 url: "https://github.com/GenesisAeon/genesis-tip"
 repository-code: "https://github.com/GenesisAeon/genesis-tip"
 license: MIT
